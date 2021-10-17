@@ -1,6 +1,6 @@
 #include <iostream>
 #include "mnist/include/mnist/mnist_reader.hpp"
-#include "../eigen/Eigen/Dense"
+#include "eigen/Eigen/Dense"
 
 using namespace std;
 
