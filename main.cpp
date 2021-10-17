@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../mnist/include/mnist/mnist_reader.hpp"
+#include "mnist/include/mnist/mnist_reader.hpp"
 #include "../eigen/Eigen/Dense"
 
 using namespace std;
