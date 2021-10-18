@@ -1,6 +1,7 @@
 main:
 	g++ -I ../eigen -std=c++17 main.cpp -o run
 
+
 test:
 	g++ -std=c++17 test.cpp -o test
 	./test
