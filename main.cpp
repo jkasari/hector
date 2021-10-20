@@ -1,6 +1,6 @@
 #include <iostream>
 #include "mnistParser.hpp"
-#include "eigen/Eigen/Dense"
+#include "logic.hpp"
 
 using namespace std;
 
@@ -15,10 +15,8 @@ int main() {
   ReadMNISTImages("train-images-idx3-ubyte", 60000, 784, trainImages);
   ReadMNISTLabels("t10k-labels-idx1-ubyte", 10000, testLabels);
   ReadMNISTLabels("train-labels-idx1-ubyte", 60000, trainLabels);
-  cout << testImages.size() << endl;
-  cout << trainImages.size() << endl;
-  cout << testLabels.size() << endl;
-  cout << trainLabels.size() << endl;
+
+  eigenTest(trainImages[0]);
 
   return 0;
 }
