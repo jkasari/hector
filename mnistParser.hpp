@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 
+
+
 int ReverseInt (int i)
 {
     unsigned char ch1, ch2, ch3, ch4;
@@ -11,7 +13,7 @@ int ReverseInt (int i)
     ch4=(i>>24)&255;
     return((int)ch1<<24)+((int)ch2<<16)+((int)ch3<<8)+ch4;
 }
-void ReadMNISTImages(std::string fileName, int NumberOfImages, int DataOfAnImage,std::vector<std::vector<double>> &arr)
+void ReadMNISTImages(std::string fileName, int NumberOfImages, int DataOfAnImage, std::vector<std::vector<double>> &arr)
 {
     arr.resize(NumberOfImages,std::vector<double>(DataOfAnImage));
     std::ifstream file (fileName,std::ios::binary);
@@ -40,6 +42,25 @@ void ReadMNISTImages(std::string fileName, int NumberOfImages, int DataOfAnImage
                     arr[i][(n_rows*r)+c]= (double)temp;
                 }
             }
+        }
+    }
+}
+
+void ReadMNISTLabels(std::string fileName, int numberOfImages, std::vector<double> &vec) {
+    vec.resize(numberOfImages);
+    std::ifstream file (fileName,std::ios::binary);
+    if (file.is_open()) {
+        int magic_number=0;
+        int number_of_images=0;
+
+        file.read((char*)&magic_number, sizeof(magic_number));
+        magic_number = ReverseInt(magic_number);
+
+        file.read((char*)&number_of_images, sizeof(number_of_images));
+        number_of_images = ReverseInt(number_of_images);
+
+        for (int i = 0; i < number_of_images; ++i) {
+            file.read((char*)&vec[i], 1);
         }
     }
 }

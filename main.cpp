@@ -1,21 +1,22 @@
 #include <iostream>
 #include "mnistParser.hpp"
-#include "eigen/Eigen/Dense"
+#include "logic.hpp"
 
 using namespace std;
 
 int main() {
 
-  cout << "Hello world\n";
+  cout << "Hello Hector\n";
   vector<vector<double>> testImages;
   vector<vector<double>> trainImages;
+  vector<double> testLabels;
+  vector<double> trainLabels;
   ReadMNISTImages("t10k-images-idx3-ubyte", 10000, 784, testImages);
   ReadMNISTImages("train-images-idx3-ubyte", 60000, 784, trainImages);
-  cout << trainImages.size() << endl;
-  cout << trainImages[0].size() << endl;
-  //for (int i = 0; i < trainImages[0].size(); ++i) {
-  //  cout << trainImages[9][i] << endl;
-  //}
+  ReadMNISTLabels("t10k-labels-idx1-ubyte", 10000, testLabels);
+  ReadMNISTLabels("train-labels-idx1-ubyte", 60000, trainLabels);
+
+  eigenTest(trainImages[0]);
 
   return 0;
 }
