@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "mnistParser.hpp"
 #include "logic.hpp"
 
@@ -21,38 +22,37 @@ int main() {
   Eigen::VectorXd HiddenLayerInput = Eigen::VectorXd::Random(ILS);
   Eigen::MatrixXd HiddenLayerWeights = Eigen::MatrixXd::Random(HLS, ILS);
   Eigen::VectorXd HiddenLayerBias = Eigen::VectorXd::Random(HLS);
-  Eigen::VectorXd HiddenLayerOutPut = Eigen::VectorXd::Random(HLS);
+  Eigen::VectorXd HiddenLayerOutPut(HLS);
   Eigen::MatrixXd OutPutLayerWeights = Eigen::MatrixXd::Random(OLS, HLS);
   Eigen::VectorXd OutPutLayerBias = Eigen::VectorXd::Random(OLS);
+  Eigen::VectorXd FinalOutPut(OLS);
 
-  for (int i = 0; i < ILS; ++i) {
-    HiddenLayerInput(i) = trainImages[0][i];
+
+  for (int i = 0; i < 10; ++i) {
+
+    for (int j = 0; j < ILS; ++j) {
+      if (j % 28 == 0) {
+        cout << endl;
+      }
+      if (trainImages[i][j] < 100) {
+        cout << " ";
+      }
+      if (trainImages[i][j] < 10) {
+        cout << " ";
+      }
+      cout << trainImages[i][j];
+      HiddenLayerInput(j) = trainImages[i][j];
+    }
+    doTheThing(HiddenLayerInput, HiddenLayerWeights, HiddenLayerBias, HiddenLayerOutPut);
+    doTheThing(HiddenLayerOutPut, OutPutLayerWeights, OutPutLayerBias, FinalOutPut);
+    Eigen::VectorXd::Index row, col;
+    cout << endl << endl;
+    FinalOutPut.maxCoeff(&row, &col);
+    cout << "Hector is fairly sure that's a ";
+    cout << "\x1B[31m" << row << "\033[0m" << endl;
   }
 
-  //int index = 9;
-  //for (int i = 0; i < 784; ++i) {
-  //  if (trainImages[index][i] < 100) {
-  //    cout << " ";
-  //  }
-  //  if (trainImages[index][i] < 10) {
-  //    cout << " ";
-  //  }
-  //  cout << trainImages[index][i];
-  //  if (i % 28 == 0) {
-  //    cout << endl;
-  //  }
-  //}
-
-
-  Eigen::MatrixXd m(3, 4);
-  m << 1, 2, 3, 4,
-       5, 6, 7, 8,
-       9, 1, 2, 3;
-  cout << m << endl;
-  Eigen::Vector4d v(1, 2, 3, 4);
-  cout << m*v << endl;
-  //cout << HiddenLayerInput << endl;
-
+  //cout  << trainLabels[5000] << endl;
 
   return 0;
 }
