@@ -27,54 +27,32 @@ int main() {
   Eigen::VectorXd OutPutLayerBias = Eigen::VectorXd::Random(OLS);
   Eigen::VectorXd FinalOutPut(OLS);
 
-  for (int i = 0; i < ILS; ++i) {
-    HiddenLayerInput(i) = trainImages[0][i];
+
+  for (int i = 0; i < 10; ++i) {
+
+    for (int j = 0; j < ILS; ++j) {
+      if (j % 28 == 0) {
+        cout << endl;
+      }
+      if (trainImages[i][j] < 100) {
+        cout << " ";
+      }
+      if (trainImages[i][j] < 10) {
+        cout << " ";
+      }
+      cout << trainImages[i][j];
+      HiddenLayerInput(j) = trainImages[i][j];
+    }
+    doTheThing(HiddenLayerInput, HiddenLayerWeights, HiddenLayerBias, HiddenLayerOutPut);
+    doTheThing(HiddenLayerOutPut, OutPutLayerWeights, OutPutLayerBias, FinalOutPut);
+    Eigen::VectorXd::Index row, col;
+    cout << endl << endl;
+    FinalOutPut.maxCoeff(&row, &col);
+    cout << "Hector is fairly sure that's a ";
+    cout << "\x1B[31m" << row << "\033[0m" << endl;
   }
 
-  //int index = 9;
-  //for (int i = 0; i < 784; ++i) {
-  //  if (trainImages[index][i] < 100) {
-  //    cout << " ";
-  //  }
-  //  if (trainImages[index][i] < 10) {
-  //    cout << " ";
-  //  }
-  //  cout << trainImages[index][i];
-  //  if (i % 28 == 0) {
-  //    cout << endl;
-  //  }
-  //}
-
-
- // Eigen::MatrixXd hiddenWeights(3, 4);
- // hiddenWeights << 1, 2, 3, 4,
- //                  5, 6, 7, 8,
- //                  9, 1, 2, 3;
- // Eigen::VectorXd input(4);
- // input << 1, 2, 3, 4;
- // Eigen::VectorXd hiddenBias(3);
- // hiddenBias << 29, 69.5, 27;
- // Eigen::VectorXd hiddenOutPut(3);
-
- // Eigen::MatrixXd outPutWeights(2, 3);
- // outPutWeights << 3, 5, 6,
- //                  2, 7, 4;
- // Eigen::VectorXd outPut(2);
- // Eigen::VectorXd outPutBias(2);
- // outPutBias << 3, 4;
-
- // doTheThing(input, hiddenWeights, hiddenBias, hiddenOutPut);
-
- // doTheThing(hiddenOutPut, outPutWeights, outPutBias, outPut);
-
-
-  //cout << outPut.maxCoeff() << endl;
-
-
-  doTheThing(HiddenLayerInput, HiddenLayerWeights, HiddenLayerBias, HiddenLayerOutPut);
-  doTheThing(HiddenLayerOutPut, OutPutLayerWeights, OutPutLayerBias, FinalOutPut);
-
-  cout << FinalOutPut << endl;
+  //cout  << trainLabels[5000] << endl;
 
   return 0;
 }
