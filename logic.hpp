@@ -16,4 +16,10 @@ void eigenTest(std::vector<double> cVec) {
   std::cout << temp << std::endl;
   temp = 1 / (1 + exp(-1 * temp));
   std::cout << temp << std::endl;
-  }
+}
+
+void doTheThing(const Eigen::VectorXd &input, Eigen::MatrixXd &weights, Eigen::VectorXd &bias, Eigen::VectorXd &outPut) {
+  outPut = weights*input;
+  outPut -= bias;
+  outPut = 1 / (1 + outPut.array().exp());
+}

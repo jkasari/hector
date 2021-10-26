@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "mnistParser.hpp"
 #include "logic.hpp"
 
@@ -21,9 +22,10 @@ int main() {
   Eigen::VectorXd HiddenLayerInput = Eigen::VectorXd::Random(ILS);
   Eigen::MatrixXd HiddenLayerWeights = Eigen::MatrixXd::Random(HLS, ILS);
   Eigen::VectorXd HiddenLayerBias = Eigen::VectorXd::Random(HLS);
-  Eigen::VectorXd HiddenLayerOutPut = Eigen::VectorXd::Random(HLS);
+  Eigen::VectorXd HiddenLayerOutPut(HLS);
   Eigen::MatrixXd OutPutLayerWeights = Eigen::MatrixXd::Random(OLS, HLS);
   Eigen::VectorXd OutPutLayerBias = Eigen::VectorXd::Random(OLS);
+  Eigen::VectorXd FinalOutPut(OLS);
 
   for (int i = 0; i < ILS; ++i) {
     HiddenLayerInput(i) = trainImages[0][i];
@@ -44,15 +46,35 @@ int main() {
   //}
 
 
-  Eigen::MatrixXd m(3, 4);
-  m << 1, 2, 3, 4,
-       5, 6, 7, 8,
-       9, 1, 2, 3;
-  cout << m << endl;
-  Eigen::Vector4d v(1, 2, 3, 4);
-  cout << m*v << endl;
-  //cout << HiddenLayerInput << endl;
+ // Eigen::MatrixXd hiddenWeights(3, 4);
+ // hiddenWeights << 1, 2, 3, 4,
+ //                  5, 6, 7, 8,
+ //                  9, 1, 2, 3;
+ // Eigen::VectorXd input(4);
+ // input << 1, 2, 3, 4;
+ // Eigen::VectorXd hiddenBias(3);
+ // hiddenBias << 29, 69.5, 27;
+ // Eigen::VectorXd hiddenOutPut(3);
 
+ // Eigen::MatrixXd outPutWeights(2, 3);
+ // outPutWeights << 3, 5, 6,
+ //                  2, 7, 4;
+ // Eigen::VectorXd outPut(2);
+ // Eigen::VectorXd outPutBias(2);
+ // outPutBias << 3, 4;
+
+ // doTheThing(input, hiddenWeights, hiddenBias, hiddenOutPut);
+
+ // doTheThing(hiddenOutPut, outPutWeights, outPutBias, outPut);
+
+
+  //cout << outPut.maxCoeff() << endl;
+
+
+  doTheThing(HiddenLayerInput, HiddenLayerWeights, HiddenLayerBias, HiddenLayerOutPut);
+  doTheThing(HiddenLayerOutPut, OutPutLayerWeights, OutPutLayerBias, FinalOutPut);
+
+  cout << FinalOutPut << endl;
 
   return 0;
 }
